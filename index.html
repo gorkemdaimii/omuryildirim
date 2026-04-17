@@ -13,7 +13,6 @@
   body{background:var(--ink);color:var(--paper);font-family:'DM Mono',monospace;cursor:none;overflow-x:hidden}
   body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.04;pointer-events:none;z-index:9999;animation:grain .15s steps(1) infinite}
   @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-2px,3px)}40%{transform:translate(3px,-1px)}60%{transform:translate(-1px,2px)}80%{transform:translate(2px,-3px)}100%{transform:translate(-3px,1px)}}
-
   #cursor-dot{position:fixed;width:6px;height:6px;background:var(--warm);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
   #cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(200,169,110,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .35s cubic-bezier(.25,.46,.45,.94),height .35s cubic-bezier(.25,.46,.45,.94),border-color .3s}
   .cursor-expanded #cursor-ring{width:64px;height:64px;border-color:var(--warm)}
@@ -21,14 +20,12 @@
   #cursor-label{position:fixed;pointer-events:none;z-index:10001;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);background:var(--warm);padding:.35rem .8rem;transform:translate(-50%,24px);opacity:0;transition:opacity .2s;white-space:nowrap}
   .cursor-play #cursor-label{opacity:1}
   .cursor-play #cursor-ring{width:80px;height:80px;border-color:var(--warm)}
-
   nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:2rem 3rem;transition:transform .4s cubic-bezier(.16,1,.3,1)}
   nav::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,9,8,.9) 0%,transparent 100%);z-index:-1}
   .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;letter-spacing:.08em;color:var(--paper);text-decoration:none}
   .nav-links{display:flex;gap:3rem;list-style:none}
   .nav-links a{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s}
   .nav-links a:hover{color:var(--paper)}
-
   #hero{height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 4rem;position:relative;overflow:hidden}
   .hero-counter{position:absolute;top:50%;right:3rem;transform:translateY(-50%);writing-mode:vertical-rl;font-size:.58rem;letter-spacing:.35em;color:var(--muted)}
   .hero-reel{font-family:'Cormorant Garamond',serif;font-size:clamp(4rem,12vw,11rem);font-weight:300;line-height:.9;letter-spacing:-.02em}
@@ -46,10 +43,8 @@
   .scroll-hint span{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
   .scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--muted),transparent);animation:sp 2s ease-in-out 1.5s infinite}
   @keyframes sp{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.6);opacity:.4}}
-
   .section-label{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--warm);margin-bottom:4rem;display:flex;align-items:center;gap:1.5rem}
   .section-label::after{content:'';flex:1;max-width:60px;height:1px;background:var(--warm);opacity:.4}
-
   #work{padding:8rem 3rem}
   .projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
   .project{position:relative;overflow:hidden;cursor:none}
@@ -86,7 +81,6 @@
   .thumb-loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1}
   .thumb-loader::after{content:'';width:20px;height:20px;border:1px solid rgba(200,169,110,.3);border-top-color:var(--warm);border-radius:50%;animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
-
   #video-overlay{position:fixed;inset:0;z-index:5000;background:rgba(10,9,8,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s cubic-bezier(.16,1,.3,1)}
   #video-overlay.open{opacity:1;pointer-events:all}
   .overlay-close{position:absolute;top:2.5rem;right:3rem;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);cursor:none;display:flex;align-items:center;gap:.8rem;transition:color .3s;background:none;border:none}
@@ -96,16 +90,18 @@
   #video-overlay.open .overlay-meta{opacity:1;transform:translateY(0)}
   .overlay-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:300;line-height:1}
   .overlay-tags{margin-top:.6rem;display:flex;gap:.8rem;justify-content:center}
-  .vimeo-wrap{width:min(900px,90vw);aspect-ratio:16/9;position:relative;background:#000;opacity:0;transform:scale(.96);transition:opacity .5s .15s,transform .5s .15s cubic-bezier(.16,1,.3,1)}
+  .vimeo-wrap{width:min(900px,90vw);aspect-ratio:16/9;position:relative;background:#0d0c0b;opacity:0;transform:scale(.96);transition:opacity .5s .15s,transform .5s .15s cubic-bezier(.16,1,.3,1)}
   #video-overlay.open .vimeo-wrap{opacity:1;transform:scale(1)}
   .vimeo-wrap iframe{width:100%;height:100%;border:none;display:block}
-
+  .vimeo-fallback{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;background:#0d0c0b;border:1px solid rgba(200,169,110,.15)}
+  .vimeo-fallback p{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .vimeo-fallback a{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);background:var(--warm);padding:.9rem 2rem;text-decoration:none;transition:opacity .3s}
+  .vimeo-fallback a:hover{opacity:.8}
   .marquee-section{padding:5rem 0;border-top:1px solid rgba(242,237,230,.06);border-bottom:1px solid rgba(242,237,230,.06);overflow:hidden}
   .marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite}
   .marquee-item{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,5rem);font-weight:300;font-style:italic;color:rgba(242,237,230,.06);padding:0 3rem;flex-shrink:0}
   .marquee-item.accent{color:var(--warm);opacity:.35}
   @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
   #about{padding:8rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
   .about-left h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:300;line-height:1.05;margin-bottom:2.5rem}
   .about-left h2 em{font-style:italic;color:var(--warm)}
@@ -113,7 +109,6 @@
   .skills-list{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
   .skill-item{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.8rem}
   .skill-item::before{content:'';width:20px;height:1px;background:var(--warm);opacity:.5}
-
   #contact{padding:8rem 3rem;text-align:center}
   .contact-eyebrow{font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--warm);margin-bottom:2rem}
   .contact-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,8vw,7rem);font-weight:300;line-height:1;margin-bottom:3rem}
@@ -127,18 +122,15 @@
   .cta-btn.ghost{color:var(--muted)}
   .cta-btn.ghost::before{background:rgba(242,237,230,.08)}
   .cta-btn.ghost:hover{color:var(--paper);border-color:rgba(242,237,230,.4)}
-
   footer{padding:2rem 3rem;border-top:1px solid rgba(242,237,230,.06);display:flex;justify-content:space-between;align-items:center}
   footer p{font-size:.6rem;letter-spacing:.15em;color:var(--muted)}
   .footer-links{display:flex;gap:2rem}
   .footer-links a{font-size:.6rem;letter-spacing:.15em;color:var(--muted);text-decoration:none;transition:color .3s}
   .footer-links a:hover{color:var(--warm)}
-
   .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
   .reveal.visible{opacity:1;transform:translateY(0)}
   .reveal-delay-1{transition-delay:.12s}
   .reveal-delay-2{transition-delay:.24s}
-
   @media(max-width:768px){
     nav{padding:1.5rem}
     .nav-links{display:none}
@@ -154,12 +146,10 @@
 </style>
 </head>
 <body>
-
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
 <div id="cursor-label">Play</div>
 
-<!-- VIDEO OVERLAY -->
 <div id="video-overlay">
   <button class="overlay-close" id="close-overlay">
     <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -171,10 +161,13 @@
   </div>
   <div class="vimeo-wrap">
     <iframe id="vimeo-player" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    <div class="vimeo-fallback" id="vimeo-fallback">
+      <p>Embed restricted — open directly</p>
+      <a id="vimeo-direct" href="#" target="_blank">Watch on Vimeo ↗</a>
+    </div>
   </div>
 </div>
 
-<!-- NAV -->
 <nav id="main-nav">
   <a href="#" class="nav-logo">Ömür Yıldırım</a>
   <ul class="nav-links">
@@ -184,7 +177,6 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-counter">REEL — 2026</div>
   <div class="hero-reel">
@@ -203,7 +195,6 @@
   </div>
 </section>
 
-<!-- WORK -->
 <section id="work">
   <div class="section-label reveal">Selected Work</div>
   <div class="projects-grid">
@@ -326,7 +317,6 @@
   </div>
 </section>
 
-<!-- MARQUEE -->
 <div class="marquee-section">
   <div class="marquee-track">
     <span class="marquee-item">Film</span><span class="marquee-item accent">·</span>
@@ -340,7 +330,6 @@
   </div>
 </div>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="about-left reveal">
     <div class="section-label">About</div>
@@ -362,7 +351,6 @@
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="contact-eyebrow reveal">New Project</div>
   <h2 class="contact-heading reveal reveal-delay-1">Let's make<br><em>something.</em></h2>
@@ -372,32 +360,29 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p>© 2026 Ömür Yıldırım — All Rights Reserved</p>
   <div class="footer-links">
     <a href="https://www.instagram.com/mavijin/">Instagram</a>
-    <a href="https://www.linkedin.com/in/ömür-yıldırım-33b4a1170/">Vimeo</a>
+    <a href="https://www.linkedin.com/in/ömür-yıldırım-33b4a1170/">LinkedIn</a>
   </div>
 </footer>
 
 <script>
-const dot = document.getElementById('cursor-dot');
-const ring = document.getElementById('cursor-ring');
-const lbl  = document.getElementById('cursor-label');
+const dot=document.getElementById('cursor-dot');
+const ring=document.getElementById('cursor-ring');
+const lbl=document.getElementById('cursor-label');
 let mx=0,my=0,rx=0,ry=0;
-
 document.addEventListener('mousemove',e=>{
-  mx=e.clientX; my=e.clientY;
-  dot.style.left=mx+'px'; dot.style.top=my+'px';
-  lbl.style.left=mx+'px'; lbl.style.top=my+'px';
+  mx=e.clientX;my=e.clientY;
+  dot.style.left=mx+'px';dot.style.top=my+'px';
+  lbl.style.left=mx+'px';lbl.style.top=my+'px';
 });
 (function animRing(){
-  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
-  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
   requestAnimationFrame(animRing);
 })();
-
 document.querySelectorAll('a,button').forEach(el=>{
   el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-expanded'));
   el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-expanded'));
@@ -407,31 +392,32 @@ document.querySelectorAll('.project').forEach(el=>{
   el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-play'));
 });
 
-/* ── VIMEO THUMBNAIL ── */
-async function loadThumb(vimeoId,img,loaderId){
-  if(!vimeoId||vimeoId.startsWith('YOUR_')){
-    const l=document.getElementById(loaderId);
-    if(l)l.style.display='none';
-    return;
-  }
+/* ── VIMEO HELPERS ── */
+function extractVimeoId(val){
+  if(!val||val.trim().startsWith('YOUR_'))return null;
+  if(/^\d+$/.test(val.trim()))return val.trim();
+  const m=val.match(/vimeo\.com\/(\d+)/);
+  return m?m[1]:null;
+}
+
+async function loadThumb(rawVal,img,loaderId){
+  const id=extractVimeoId(rawVal);
+  const l=document.getElementById(loaderId);
+  if(!id){if(l)l.style.display='none';return;}
   try{
-    const r=await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}&width=1280`);
+    const r=await fetch('https://vimeo.com/api/oembed.json?url=https://vimeo.com/'+id+'&width=1280');
     const d=await r.json();
     img.onload=()=>{
       img.style.opacity='1';
       img.style.transition='opacity .6s';
-      const l=document.getElementById(loaderId);
       if(l)l.style.display='none';
     };
     img.src=d.thumbnail_url;
-  }catch(e){
-    const l=document.getElementById(loaderId);
-    if(l)l.style.display='none';
-  }
+  }catch(e){if(l)l.style.display='none';}
 }
 
 document.querySelectorAll('.project[data-vimeo]').forEach((p,i)=>{
-  loadThumb(p.dataset.vimeo, p.querySelector('.project-thumb'), `loader-${i+1}`);
+  loadThumb(p.dataset.vimeo,p.querySelector('.project-thumb'),'loader-'+(i+1));
 });
 
 /* ── VIDEO OVERLAY ── */
@@ -439,34 +425,58 @@ const overlay=document.getElementById('video-overlay');
 const player=document.getElementById('vimeo-player');
 const oTitle=document.getElementById('overlay-title');
 const oTags=document.getElementById('overlay-tags');
+const fallback=document.getElementById('vimeo-fallback');
+const directLink=document.getElementById('vimeo-direct');
 
-function openVideo(id,title,tags){
+function openVideo(rawVal,title,tags){
+  const id=extractVimeoId(rawVal);
+  if(!id)return;
   oTitle.textContent=title;
-  oTags.innerHTML=tags.split(',').map(t=>`<span class="tag">${t.trim()}</span>`).join('');
-  player.src=`https://player.vimeo.com/video/${id}?autoplay=1&color=c8a96e&title=0&byline=0&portrait=0`;
+  oTags.innerHTML=tags.split(',').map(t=>'<span class="tag">'+t.trim()+'</span>').join('');
+  fallback.style.display='none';
+  player.style.display='block';
+  directLink.href='https://vimeo.com/'+id;
+  player.src='https://player.vimeo.com/video/'+id+'?autoplay=1&color=c8a96e&title=0&byline=0&portrait=0';
   overlay.classList.add('open');
   document.body.style.overflow='hidden';
+  /* listen for embed error via postMessage */
+  if(window._vmh)window.removeEventListener('message',window._vmh);
+  window._vmh=function(e){
+    if(!e.data||typeof e.data!=='string')return;
+    try{
+      const d=JSON.parse(e.data);
+      if(d.event==='error'||(d.error&&d.error.code)){
+        player.style.display='none';
+        fallback.style.display='flex';
+      }
+    }catch(x){}
+  };
+  window.addEventListener('message',window._vmh);
 }
+
 function closeVideo(){
   overlay.classList.remove('open');
-  setTimeout(()=>{ player.src=''; },500);
+  fallback.style.display='none';
+  player.style.display='block';
+  if(window._vmh){window.removeEventListener('message',window._vmh);window._vmh=null;}
+  setTimeout(()=>{player.src='';},500);
   document.body.style.overflow='';
 }
 
 document.querySelectorAll('.project').forEach(p=>{
   p.addEventListener('click',()=>{
-    const id=p.dataset.vimeo;
-    if(!id||id.startsWith('YOUR_'))return;
-    openVideo(id,p.dataset.title,p.dataset.tags);
+    const v=p.dataset.vimeo;
+    if(!v||v.startsWith('YOUR_'))return;
+    openVideo(v,p.dataset.title,p.dataset.tags);
   });
 });
 document.getElementById('close-overlay').addEventListener('click',closeVideo);
-overlay.addEventListener('click',e=>{ if(e.target===overlay)closeVideo(); });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape')closeVideo(); });
+overlay.addEventListener('click',e=>{if(e.target===overlay)closeVideo();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeVideo();});
 
 /* ── SCROLL REVEAL ── */
 const obs=new IntersectionObserver(
-  entries=>entries.forEach(e=>{ if(e.isIntersecting)e.target.classList.add('visible'); }),
+  entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),
   {threshold:.08}
 );
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
@@ -484,7 +494,7 @@ window.addEventListener('scroll',()=>{
 document.querySelectorAll('.cta-btn').forEach(btn=>{
   btn.addEventListener('mousemove',e=>{
     const r=btn.getBoundingClientRect();
-    btn.style.transform=`translate(${(e.clientX-(r.left+r.width/2))*.25}px,${(e.clientY-(r.top+r.height/2))*.35}px)`;
+    btn.style.transform='translate('+(e.clientX-(r.left+r.width/2))*.25+'px,'+(e.clientY-(r.top+r.height/2))*.35+'px)';
     btn.style.transition='transform .15s ease,color .4s,border-color .4s';
   });
   btn.addEventListener('mouseleave',()=>{
