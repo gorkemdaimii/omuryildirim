@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ömür Yıldırım — Creative Director</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#0a0908; --paper:#f2ede6; --warm:#c8a96e; --muted:#6b6560; }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--paper);font-family:'DM Mono',monospace;cursor:none;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.04;pointer-events:none;z-index:9999;animation:grain .15s steps(1) infinite}
+  @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-2px,3px)}40%{transform:translate(3px,-1px)}60%{transform:translate(-1px,2px)}80%{transform:translate(2px,-3px)}100%{transform:translate(-3px,1px)}}
+
+  #cursor-dot{position:fixed;width:6px;height:6px;background:var(--warm);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+  #cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(200,169,110,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .35s cubic-bezier(.25,.46,.45,.94),height .35s cubic-bezier(.25,.46,.45,.94),border-color .3s}
+  .cursor-expanded #cursor-ring{width:64px;height:64px;border-color:var(--warm)}
+  .cursor-expanded #cursor-dot{background:var(--paper)}
+  #cursor-label{position:fixed;pointer-events:none;z-index:10001;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);background:var(--warm);padding:.35rem .8rem;transform:translate(-50%,24px);opacity:0;transition:opacity .2s;white-space:nowrap}
+  .cursor-play #cursor-label{opacity:1}
+  .cursor-play #cursor-ring{width:80px;height:80px;border-color:var(--warm)}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:2rem 3rem;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+  nav::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,9,8,.9) 0%,transparent 100%);z-index:-1}
+  .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;letter-spacing:.08em;color:var(--paper);text-decoration:none}
+  .nav-links{display:flex;gap:3rem;list-style:none}
+  .nav-links a{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s}
+  .nav-links a:hover{color:var(--paper)}
+
+  #hero{height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 4rem;position:relative;overflow:hidden}
+  .hero-counter{position:absolute;top:50%;right:3rem;transform:translateY(-50%);writing-mode:vertical-rl;font-size:.58rem;letter-spacing:.35em;color:var(--muted)}
+  .hero-reel{font-family:'Cormorant Garamond',serif;font-size:clamp(4rem,12vw,11rem);font-weight:300;line-height:.9;letter-spacing:-.02em}
+  .hero-reel .line{overflow:hidden;display:block}
+  .hero-reel .line span{display:block;transform:translateY(110%);animation:slideUp 1.2s cubic-bezier(.16,1,.3,1) forwards}
+  .hero-reel .line:nth-child(2) span{animation-delay:.1s}
+  .hero-reel .line:nth-child(3) span{animation-delay:.2s}
+  .hero-reel .italic{font-style:italic;color:var(--warm)}
+  @keyframes slideUp{to{transform:translateY(0)}}
+  .hero-meta{margin-top:2.5rem;display:flex;align-items:center;gap:3rem;opacity:0;animation:fadeIn 1s .8s forwards}
+  @keyframes fadeIn{to{opacity:1}}
+  .hero-meta-item{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);line-height:1.8}
+  .hero-meta-item strong{display:block;color:var(--paper);font-weight:400}
+  .scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeIn 1.5s 1.2s forwards}
+  .scroll-hint span{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+  .scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--muted),transparent);animation:sp 2s ease-in-out 1.5s infinite}
+  @keyframes sp{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.6);opacity:.4}}
+
+  .section-label{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--warm);margin-bottom:4rem;display:flex;align-items:center;gap:1.5rem}
+  .section-label::after{content:'';flex:1;max-width:60px;height:1px;background:var(--warm);opacity:.4}
+
+  #work{padding:8rem 3rem}
+  .projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+  .project{position:relative;overflow:hidden;cursor:none}
+  .project:nth-child(3){grid-column:1/-1}
+  .project-inner{aspect-ratio:16/9;position:relative;overflow:hidden}
+  .project:nth-child(3) .project-inner{aspect-ratio:21/6}
+  .project-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94),opacity .6s;opacity:0}
+  .project:hover .project-thumb{transform:scale(1.04)}
+  .project-bg{position:absolute;inset:0;transition:transform .9s cubic-bezier(.25,.46,.45,.94)}
+  .project:hover .project-bg{transform:scale(1.04)}
+  .p1 .project-bg{background:linear-gradient(135deg,#1a0e0e,#3d1a0a,#1a0e0e)}
+  .p2 .project-bg{background:linear-gradient(135deg,#0a0e1a,#0a2035,#0a0e1a)}
+  .p3 .project-bg{background:linear-gradient(135deg,#0e0a0e,#250e30,#0e0a0e)}
+  .p4 .project-bg{background:linear-gradient(135deg,#0a1510,#0e2e1a,#0a1510)}
+  .p5 .project-bg{background:linear-gradient(135deg,#14100a,#302010,#14100a)}
+  .p1 .project-bg::after,.p2 .project-bg::after,.p3 .project-bg::after,.p4 .project-bg::after,.p5 .project-bg::after{content:'';position:absolute;inset:0;opacity:.15}
+  .p1 .project-bg::after{background:radial-gradient(ellipse at 30% 60%,#ff6030 0%,transparent 60%)}
+  .p2 .project-bg::after{background:radial-gradient(ellipse at 70% 40%,#3090ff 0%,transparent 60%)}
+  .p3 .project-bg::after{background:radial-gradient(ellipse at 50% 50%,#c060ff 0%,transparent 60%)}
+  .p4 .project-bg::after{background:radial-gradient(ellipse at 20% 70%,#40ff90 0%,transparent 60%)}
+  .p5 .project-bg::after{background:radial-gradient(ellipse at 80% 30%,#ffaa30 0%,transparent 60%)}
+  .project-base{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,8,.9) 0%,rgba(10,9,8,.1) 55%,transparent 100%);z-index:2}
+  .project-hover-overlay{position:absolute;inset:0;background:rgba(10,9,8,.35);z-index:3;opacity:0;transition:opacity .4s}
+  .project:hover .project-hover-overlay{opacity:1}
+  .project-always{position:absolute;bottom:0;left:0;right:0;padding:2rem 2.5rem;z-index:4}
+  .project-num{font-size:.55rem;letter-spacing:.3em;color:var(--warm);margin-bottom:.4rem}
+  .project-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,2.5vw,2.2rem);font-weight:300;line-height:1.1}
+  .project-tags{margin-top:.6rem;display:flex;gap:.7rem;flex-wrap:wrap;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+  .project:hover .project-tags{opacity:1;transform:translateY(0)}
+  .tag{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);border:1px solid rgba(107,101,96,.3);padding:.3rem .8rem}
+  .play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.7);width:64px;height:64px;border:1px solid rgba(200,169,110,.6);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:5;opacity:0;transition:opacity .4s,transform .4s}
+  .play-btn svg{width:18px;height:18px;fill:var(--warm);margin-left:3px}
+  .project:hover .play-btn{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .thumb-loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1}
+  .thumb-loader::after{content:'';width:20px;height:20px;border:1px solid rgba(200,169,110,.3);border-top-color:var(--warm);border-radius:50%;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  #video-overlay{position:fixed;inset:0;z-index:5000;background:rgba(10,9,8,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s cubic-bezier(.16,1,.3,1)}
+  #video-overlay.open{opacity:1;pointer-events:all}
+  .overlay-close{position:absolute;top:2.5rem;right:3rem;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);cursor:none;display:flex;align-items:center;gap:.8rem;transition:color .3s;background:none;border:none}
+  .overlay-close:hover{color:var(--paper)}
+  .overlay-close svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5}
+  .overlay-meta{margin-bottom:2rem;text-align:center;opacity:0;transform:translateY(10px);transition:opacity .5s .2s,transform .5s .2s}
+  #video-overlay.open .overlay-meta{opacity:1;transform:translateY(0)}
+  .overlay-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:300;line-height:1}
+  .overlay-tags{margin-top:.6rem;display:flex;gap:.8rem;justify-content:center}
+  .vimeo-wrap{width:min(900px,90vw);aspect-ratio:16/9;position:relative;background:#000;opacity:0;transform:scale(.96);transition:opacity .5s .15s,transform .5s .15s cubic-bezier(.16,1,.3,1)}
+  #video-overlay.open .vimeo-wrap{opacity:1;transform:scale(1)}
+  .vimeo-wrap iframe{width:100%;height:100%;border:none;display:block}
+
+  .marquee-section{padding:5rem 0;border-top:1px solid rgba(242,237,230,.06);border-bottom:1px solid rgba(242,237,230,.06);overflow:hidden}
+  .marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite}
+  .marquee-item{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,5rem);font-weight:300;font-style:italic;color:rgba(242,237,230,.06);padding:0 3rem;flex-shrink:0}
+  .marquee-item.accent{color:var(--warm);opacity:.35}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  #about{padding:8rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
+  .about-left h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:300;line-height:1.05;margin-bottom:2.5rem}
+  .about-left h2 em{font-style:italic;color:var(--warm)}
+  .about-body{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;line-height:1.8;color:rgba(242,237,230,.72);margin-bottom:3rem}
+  .skills-list{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+  .skill-item{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.8rem}
+  .skill-item::before{content:'';width:20px;height:1px;background:var(--warm);opacity:.5}
+
+  #contact{padding:8rem 3rem;text-align:center}
+  .contact-eyebrow{font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--warm);margin-bottom:2rem}
+  .contact-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,8vw,7rem);font-weight:300;line-height:1;margin-bottom:3rem}
+  .contact-heading em{font-style:italic;color:var(--warm)}
+  .cta-group{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+  .cta-btn{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--paper);border:1px solid rgba(242,237,230,.25);padding:1.1rem 2.5rem;text-decoration:none;position:relative;overflow:hidden;display:inline-block;transition:color .4s,border-color .4s}
+  .cta-btn::before{content:'';position:absolute;inset:0;background:var(--warm);transform:translateX(-101%);transition:transform .4s cubic-bezier(.76,0,.24,1)}
+  .cta-btn:hover::before{transform:translateX(0)}
+  .cta-btn:hover{color:var(--ink);border-color:var(--warm)}
+  .cta-btn span{position:relative;z-index:1}
+  .cta-btn.ghost{color:var(--muted)}
+  .cta-btn.ghost::before{background:rgba(242,237,230,.08)}
+  .cta-btn.ghost:hover{color:var(--paper);border-color:rgba(242,237,230,.4)}
+
+  footer{padding:2rem 3rem;border-top:1px solid rgba(242,237,230,.06);display:flex;justify-content:space-between;align-items:center}
+  footer p{font-size:.6rem;letter-spacing:.15em;color:var(--muted)}
+  .footer-links{display:flex;gap:2rem}
+  .footer-links a{font-size:.6rem;letter-spacing:.15em;color:var(--muted);text-decoration:none;transition:color .3s}
+  .footer-links a:hover{color:var(--warm)}
+
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .reveal-delay-1{transition-delay:.12s}
+  .reveal-delay-2{transition-delay:.24s}
+
+  @media(max-width:768px){
+    nav{padding:1.5rem}
+    .nav-links{display:none}
+    #hero{padding:0 1.5rem 3rem}
+    .hero-counter{display:none}
+    #work,#about,#contact,footer{padding-left:1.5rem;padding-right:1.5rem}
+    .projects-grid{grid-template-columns:1fr}
+    .project:nth-child(3){grid-column:auto}
+    #about{grid-template-columns:1fr;gap:3rem}
+    footer{flex-direction:column;gap:1rem;text-align:center}
+    .vimeo-wrap{width:95vw}
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="cursor-label">Play</div>
+
+<!-- VIDEO OVERLAY -->
+<div id="video-overlay">
+  <button class="overlay-close" id="close-overlay">
+    <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    Close
+  </button>
+  <div class="overlay-meta">
+    <div class="overlay-title" id="overlay-title"></div>
+    <div class="overlay-tags" id="overlay-tags"></div>
+  </div>
+  <div class="vimeo-wrap">
+    <iframe id="vimeo-player" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">Ömür Yıldırım</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-counter">REEL — 2026</div>
+  <div class="hero-reel">
+    <div class="line"><span>Creative</span></div>
+    <div class="line"><span class="italic">Visual</span></div>
+    <div class="line"><span>Director</span></div>
+  </div>
+  <div class="hero-meta">
+    <div class="hero-meta-item">Based In<strong>Istanbul / TR</strong></div>
+    <div class="hero-meta-item">Craft<strong>Music Clip · Film · Ad · AI</strong></div>
+    <div class="hero-meta-item">Status<strong>Available ↗</strong></div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-label reveal">Selected Work</div>
+  <div class="projects-grid">
+
+    <div class="project p1 reveal"
+         data-vimeo="YOUR_VIMEO_ID_1"
+         data-title="ECHO Campaign"
+         data-tags="360° Campaign,Generative AI,2024">
+      <div class="project-inner">
+        <div class="project-bg"></div>
+        <div class="thumb-loader" id="loader-1"></div>
+        <img class="project-thumb" id="thumb-1" alt="">
+        <div class="project-base"></div>
+        <div class="project-hover-overlay"></div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="project-always">
+          <div class="project-num">01 / 05</div>
+          <div class="project-title">ECHO Campaign</div>
+          <div class="project-tags">
+            <span class="tag">360° Campaign</span>
+            <span class="tag">Generative AI</span>
+            <span class="tag">2024</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project p2 reveal reveal-delay-1"
+         data-vimeo="YOUR_VIMEO_ID_2"
+         data-title="You Made It Happen"
+         data-tags="Brand Strategy,Film,2024">
+      <div class="project-inner">
+        <div class="project-bg"></div>
+        <div class="thumb-loader" id="loader-2"></div>
+        <img class="project-thumb" id="thumb-2" alt="">
+        <div class="project-base"></div>
+        <div class="project-hover-overlay"></div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="project-always">
+          <div class="project-num">02 / 05</div>
+          <div class="project-title">You Made It Happen</div>
+          <div class="project-tags">
+            <span class="tag">Brand Strategy</span>
+            <span class="tag">Film</span>
+            <span class="tag">2024</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project p3 reveal reveal-delay-1"
+         data-vimeo="YOUR_VIMEO_ID_3"
+         data-title="20 — Mini Series"
+         data-tags="Screenplay,Direction,2025">
+      <div class="project-inner">
+        <div class="project-bg"></div>
+        <div class="thumb-loader" id="loader-3"></div>
+        <img class="project-thumb" id="thumb-3" alt="">
+        <div class="project-base"></div>
+        <div class="project-hover-overlay"></div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="project-always">
+          <div class="project-num">03 / 05</div>
+          <div class="project-title">20 — Mini Series</div>
+          <div class="project-tags">
+            <span class="tag">Screenplay</span>
+            <span class="tag">Direction</span>
+            <span class="tag">2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project p4 reveal"
+         data-vimeo="YOUR_VIMEO_ID_4"
+         data-title="Threshold — Red Bull"
+         data-tags="Short Film,Screenplay,2024">
+      <div class="project-inner">
+        <div class="project-bg"></div>
+        <div class="thumb-loader" id="loader-4"></div>
+        <img class="project-thumb" id="thumb-4" alt="">
+        <div class="project-base"></div>
+        <div class="project-hover-overlay"></div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="project-always">
+          <div class="project-num">04 / 05</div>
+          <div class="project-title">Threshold — Red Bull</div>
+          <div class="project-tags">
+            <span class="tag">Short Film</span>
+            <span class="tag">Screenplay</span>
+            <span class="tag">2024</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project p5 reveal reveal-delay-1"
+         data-vimeo="YOUR_VIMEO_ID_5"
+         data-title="The Human Trace"
+         data-tags="Creative Direction,AI Video,2024">
+      <div class="project-inner">
+        <div class="project-bg"></div>
+        <div class="thumb-loader" id="loader-5"></div>
+        <img class="project-thumb" id="thumb-5" alt="">
+        <div class="project-base"></div>
+        <div class="project-hover-overlay"></div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="project-always">
+          <div class="project-num">05 / 05</div>
+          <div class="project-title">The Human Trace</div>
+          <div class="project-tags">
+            <span class="tag">Creative Direction</span>
+            <span class="tag">AI Video</span>
+            <span class="tag">2024</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Film</span><span class="marquee-item accent">·</span>
+    <span class="marquee-item">Advertising</span><span class="marquee-item accent">·</span>
+    <span class="marquee-item">Visual Direction</span><span class="marquee-item accent">·</span>
+    <span class="marquee-item">Artificial Intelligence</span><span class="marquee-item accent">·</span>
+    <span class="marquee-item">Film</span><span class="marquee-item accent">·</span>
+    <span class="marquee-item">Advertising</span><span class="marquee-item accent">·</span>
+    <span class="marquee-item">Visual Direction</span><span class="marquee-item accent">·</span>
+    <span class="marquee-item">Artificial Intelligence</span><span class="marquee-item accent">·</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left reveal">
+    <div class="section-label">About</div>
+    <h2>Images tell<br>stories, <em>always.</em></h2>
+  </div>
+  <div class="about-right reveal reveal-delay-1">
+    <p class="about-body">
+      A creative visual director who carries advertising beyond its boundaries into cinema — using generative AI as a creative instrument. The moment that locks an audience to the screen — that is my work.
+    </p>
+    <div class="skills-list">
+      <span class="skill-item">Visual Direction</span>
+      <span class="skill-item">Commercial Film</span>
+      <span class="skill-item">360° Campaign</span>
+      <span class="skill-item">AI Video Production</span>
+      <span class="skill-item">Screenwriting</span>
+      <span class="skill-item">Editing</span>
+      <span class="skill-item">Brand Strategy</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-eyebrow reveal">New Project</div>
+  <h2 class="contact-heading reveal reveal-delay-1">Let's make<br><em>something.</em></h2>
+  <div class="cta-group reveal reveal-delay-2">
+    <a href="mailto:yildirimvideoart@gmail.com" class="cta-btn"><span>Send a Mail</span></a>
+    <a href="https://www.instagram.com/mavijin/" class="cta-btn ghost"><span>Instagram ↗</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Ömür Yıldırım — All Rights Reserved</p>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/mavijin/">Instagram</a>
+    <a href="https://www.linkedin.com/in/ömür-yıldırım-33b4a1170/">Vimeo</a>
+  </div>
+</footer>
+
+<script>
+const dot = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+const lbl  = document.getElementById('cursor-label');
+let mx=0,my=0,rx=0,ry=0;
+
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  dot.style.left=mx+'px'; dot.style.top=my+'px';
+  lbl.style.left=mx+'px'; lbl.style.top=my+'px';
+});
+(function animRing(){
+  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-expanded'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-expanded'));
+});
+document.querySelectorAll('.project').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-play'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-play'));
+});
+
+/* ── VIMEO THUMBNAIL ── */
+async function loadThumb(vimeoId,img,loaderId){
+  if(!vimeoId||vimeoId.startsWith('YOUR_')){
+    const l=document.getElementById(loaderId);
+    if(l)l.style.display='none';
+    return;
+  }
+  try{
+    const r=await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}&width=1280`);
+    const d=await r.json();
+    img.onload=()=>{
+      img.style.opacity='1';
+      img.style.transition='opacity .6s';
+      const l=document.getElementById(loaderId);
+      if(l)l.style.display='none';
+    };
+    img.src=d.thumbnail_url;
+  }catch(e){
+    const l=document.getElementById(loaderId);
+    if(l)l.style.display='none';
+  }
+}
+
+document.querySelectorAll('.project[data-vimeo]').forEach((p,i)=>{
+  loadThumb(p.dataset.vimeo, p.querySelector('.project-thumb'), `loader-${i+1}`);
+});
+
+/* ── VIDEO OVERLAY ── */
+const overlay=document.getElementById('video-overlay');
+const player=document.getElementById('vimeo-player');
+const oTitle=document.getElementById('overlay-title');
+const oTags=document.getElementById('overlay-tags');
+
+function openVideo(id,title,tags){
+  oTitle.textContent=title;
+  oTags.innerHTML=tags.split(',').map(t=>`<span class="tag">${t.trim()}</span>`).join('');
+  player.src=`https://player.vimeo.com/video/${id}?autoplay=1&color=c8a96e&title=0&byline=0&portrait=0`;
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeVideo(){
+  overlay.classList.remove('open');
+  setTimeout(()=>{ player.src=''; },500);
+  document.body.style.overflow='';
+}
+
+document.querySelectorAll('.project').forEach(p=>{
+  p.addEventListener('click',()=>{
+    const id=p.dataset.vimeo;
+    if(!id||id.startsWith('YOUR_'))return;
+    openVideo(id,p.dataset.title,p.dataset.tags);
+  });
+});
+document.getElementById('close-overlay').addEventListener('click',closeVideo);
+overlay.addEventListener('click',e=>{ if(e.target===overlay)closeVideo(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape')closeVideo(); });
+
+/* ── SCROLL REVEAL ── */
+const obs=new IntersectionObserver(
+  entries=>entries.forEach(e=>{ if(e.isIntersecting)e.target.classList.add('visible'); }),
+  {threshold:.08}
+);
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* ── NAV HIDE ── */
+let lastY=0;
+const nav=document.getElementById('main-nav');
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  nav.style.transform=y>lastY&&y>100?'translateY(-100%)':'translateY(0)';
+  lastY=y;
+});
+
+/* ── MAGNETIC BUTTONS ── */
+document.querySelectorAll('.cta-btn').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const r=btn.getBoundingClientRect();
+    btn.style.transform=`translate(${(e.clientX-(r.left+r.width/2))*.25}px,${(e.clientY-(r.top+r.height/2))*.35}px)`;
+    btn.style.transition='transform .15s ease,color .4s,border-color .4s';
+  });
+  btn.addEventListener('mouseleave',()=>{
+    btn.style.transform='';
+    btn.style.transition='transform .5s cubic-bezier(.25,.46,.45,.94),color .4s,border-color .4s';
+  });
+});
+</script>
+</body>
+</html>
